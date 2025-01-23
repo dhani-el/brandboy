@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
 import {motion,stagger, animate} from "motion/react"
 
+import MenuImage from "../assets/Images/menuImage.jpg"
 
 export function Logo(){
     return <a href="/" className="flex items-center">
-              <img src="/brandboy.jpg" className="w-[2rem] h-[2rem] drop-shadow-lg" />
-              <p className="font-medium font-lexend text-2xl drop-shadow-lg">BRANDBOY</p>
+              <img src="/brandboy.jpg" className="w-[2rem] h-[2rem]" />
+              <p className="font-medium font-lexend text-2xl">BRANDBOY</p>
             </a>
 }
 
@@ -50,7 +51,7 @@ export function Hamburger(){
         animate("#line3",{y:"-0.45rem",scaleX:1.2,scaleY:1.5, transition:{duration:0.5}})
         animate("#line1",{rotate:"140deg", transition:{duration:0.5}})
         animate("#line3",{rotate:"-140deg", transition:{duration:0.5}})
-        animate("#menu",{display:"block",opacity:1,height:"100%", transition:{duration:0.5}})
+        animate("#menu",{display:"flex",opacity:1,height:"100%", transition:{duration:0.5}})
     }
 
     function transitionFromMenu(){
@@ -83,7 +84,86 @@ function OneHamburgerLine({id}){
 }
 
 export function MenuComponent(){
-    return <motion.div id="menu" initial={{display:"none",opacity:0,height:"0%"}} className=" w-screen absolute left-0 bottom-0 bg-slate-300 z-[5]">
+    return <motion.div id="menu" initial={{display:"none",opacity:0,height:"0%"}} className="cursor-pointer w-screen absolute left-0 bottom-0 bg-white z-[5] p-16 justify-between items-center">
+                <motion.div className="w-[25%] h-full overflow-hidden flex items-center justify-center ">
+                    <motion.img src={MenuImage} className="h-full max-w-none"/>
+                </motion.div>
+                <motion.div className="w-[70%] flex items-center justify-around">
+                    <motion.div className="">
+                        <AMenuLinkItem text={"Welcome"}/>
+                        <AMenuLinkItem text={"Acheivements"}/>
+                        <AMenuLinkItem text={"Series"}/>
+                        <AMenuLinkItem text={"Ambiances"}/>
+                        <AMenuLinkItem text={"Contact"}/>
+                    </motion.div>
+                    <motion.div>
+                        <div className="flex">
+                            <motion.div>
+                                <AMenuLinkItemSmall text={"About Us"} id={"About"}/>
+                                <AMenuLinkItemSmall text={"Our Brands"} id={"Brands"}/>
+                                <AMenuLinkItemSmall text={"Showroom"} id={"Showroom"}/>
+                            </motion.div>
+                            <motion.div>
+                                <AMenuLinkItemSmall text={"Your Project"} id={"roject"}/>
+                                <AMenuLinkItemSmall text={"Personalization"} id={"Personalization"}/>
+                                <AMenuLinkItemSmall text={"Layout"} id={"Layout"}/>
+                            </motion.div>
+                            <motion.div>
+                                <AMenuLinkItemSmall text={"Instagram"} id={"Instagram"}/>
+                                <AMenuLinkItemSmall text={"Facebook"} id={"Facebook"}/>
+                                <AMenuLinkItemSmall text={"Houzz"} id={"Houzz"}/>
+                            </motion.div>
+                        </div>
+                        <p className="text-3xl text-red-500 font-lexend pt-4">Brandboy@gmail.com</p>
+                    </motion.div>
+                </motion.div>
+            </motion.div>
+}
 
-    </motion.div>
+function AMenuLinkItem({link,text}){
+    const [hovering,setHovering] = useState(false);
+
+    function handleHoverStart(){
+        setHovering(()=>true);
+    }
+    function handleHoverEnd(){
+        setHovering(()=>false);
+    }
+
+    useEffect(()=>{
+        if (hovering) {
+            animate(`#${text}`,{width:"100%",transition:{duration:0.5}})
+        }else{
+            animate(`#${text}`,{width:"0%",transition:{duration:0.5}})
+        }
+    },[hovering])
+
+    return <motion.a onHoverStart={handleHoverStart} onHoverEnd={handleHoverEnd} href={link} className="flex flex-col">
+                <p className="text-2xl font-lexend font-light">{text}</p>
+                <motion.hr id={text} className="h-[0.2rem] w-[0%] bg-red-500" />
+           </motion.a>
+}
+
+function AMenuLinkItemSmall({link,text,id}){
+    const [hovering,setHovering] = useState(false);
+
+    function handleHoverStart(){
+        setHovering(()=>true);
+    }
+    function handleHoverEnd(){
+        setHovering(()=>false);
+    }
+
+    useEffect(()=>{
+        if (hovering) {
+            animate(`#${id}`,{width:"100%",transition:{duration:0.5}})
+        }else{
+            animate(`#${id}`,{width:"0%",transition:{duration:0.5}})
+        }
+    },[hovering])
+
+    return <motion.a onHoverStart={handleHoverStart} onHoverEnd={handleHoverEnd} href={link} className="flex flex-col px-4">
+                <p className="text-sm font-lexend font-light">{text}</p>
+                <motion.hr id={id} className="h-[0.1rem] w-[0%] bg-red-500" />
+           </motion.a>
 }
