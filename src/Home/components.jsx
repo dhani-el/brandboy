@@ -1,21 +1,43 @@
-import { useEffect, useState } from "react"
-import {motion,stagger, animate} from "motion/react"
-
+import {  useEffect, useState } from "react"
+import {motion,stagger, animate,useScroll} from "motion/react"
 import MenuImage from "../assets/Images/menuImage.jpg"
 import landingVideo from "../assets/videos/video-cuisiniste-lyon-italian-kitchen.mp4"
 
 
-export function Header(){
-    return <div id="header" className=" relative z-[1] bg-slate-100 w-full flex items-center justify-center px-6 py-4">
-                <Logo/>
+export function Pinned({children,height}){
 
+    return <div style={{height}} className={` w-full flex justify-center `}>
+                <div className="top-0 left-0 sticky bg-red-600 h-[100vh] w-full">
+                    {children}
+                </div>
+
+    </div>
+}
+
+export function Top(){
+
+    const { scrollYProgress } = useScroll({
+        offset: ["start end", "end end"]
+      })
+
+    return <Pinned height={"200vh"}>
+            <Header/>
+            <MenuComponent/>
+            <Attraction/>
+            <Hamburger/>
+          </Pinned>
+}
+
+export function Header(){
+    return <div id="header" className=" relative z-[1] bg-slate-100 w-full flex items-center justify-center px-6 py-8">
+                <Logo/>
   </div>
 }
 
 export function Logo(){
-    return <a href="/" className="flex items-center">
+    return <a href="/" className="flex items-center fixed top-[1rem] ">
               <img src="/brandboy.jpg" className="w-[2rem] h-[2rem]" />
-              <p className="font-medium font-lexend text-2xl">BRANDBOY</p>
+              <p className="font-medium font-lexend md:text-2xl">BRANDBOY</p>
             </a>
 }
 
