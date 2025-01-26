@@ -2,6 +2,8 @@ import {  useEffect, useState } from "react"
 import {motion,stagger, animate,useScroll,useMotionValue,useMotionValueEvent} from "motion/react"
 import MenuImage from "../assets/Images/menuImage.jpg"
 import landingVideo from "../assets/videos/video-cuisiniste-lyon-italian-kitchen.mp4"
+import proof from "../assets/Images/proof.png"
+
 
 
 export function Pinned({children,height}){
@@ -239,7 +241,6 @@ export function Attraction() {
     const [animateAttrState,setAnimateAttrState] = useState("default")
     const { scrollY } = useScroll();
 
-
     useMotionValueEvent(scrollY, "change", (latest) => {
         switch(true){
             case (latest < screenHeight * (20/100)):{
@@ -254,17 +255,74 @@ export function Attraction() {
                 setAnimateAttrState("stepOneRev")
             }
             break;
-
-            // case latest < 100:{
-            //     setanimateState("animateOut")
-            // }
         }
       })
 
-      const stepOne = {width:"70%",transition:{ease:"easeIn",duration:1}}
-      const stepOneRev = {width:"100%",transition:{ease:"easeIn",duration:1}}
-      const variants = {stepOne,stepOneRev}
-    return <motion.div  className="absolute z-0 w-screen landscape:h-[100vh] top-0 left-0 flex items-center justify-center">
+    const stepOne = {width:"70%",transition:{ease:"easeOut",duration:1}}
+    const stepOneRev = {width:"100%",transition:{ease:"easeOut",duration:1}}
+    const variants = {stepOne,stepOneRev}
+    return <motion.div  className="absolute z-0 w-screen landscape:h-[100vh] top-0 left-0 flex items-center justify-center overflow-hidden">
                 <motion.video initial={false} variants={variants} animate={animateAttrState} autoPlay muted loop  src={landingVideo} className="w-full" ></motion.video>
             </motion.div>
+}
+
+export function Body(){
+
+    return <motion.div whileInView={{top:"-10%",transition:{duration:0.5}}}  className=" z-10 w-full relative left-0">
+                    <Introduction/>
+                    <Projects/>
+                    <News/>
+                    <Series/>
+                    <OurBrands/>
+                    <Process/>
+                    <InteriorDesign/>
+    </motion.div>
+}
+
+function Introduction(){
+    return <div className=" z-10 h-screen w-screen text-slate-950 flex font-lexend font-thin items-center justify-center">
+                <div className="w-[45%] flex flex-col items-center justify-center">
+                    <p className="font-medium text-black pb-2">BrandBoy</p>
+                    <p className="text-xs pb-14">Interior Designer Lagos</p>
+                    <p className="text-center text-sm w-[90%]" >Italian Kitchen c’est avant tout la passion pour l’aménagement sans compromis. Des projets intemporels avec un accompagnement sur mesure. Nous sommes en challenge permanent pour vous proposer un choix unique, le meilleur des cuisines italiennes, une sélection en  adéquation avec vos envies et votre environnement.</p>
+                    <img className="pt-8" src={proof}/>
+                </div>
+                <div></div>
+    </div>
+}
+
+function Projects(){
+    return <div className="h-screen w-screen">
+
+    </div>
+}
+
+function News(){
+    return <div className="h-screen w-screen">
+
+    </div>
+}
+
+function Series(){
+    return <div className="h-screen w-screen">
+
+    </div>
+}
+
+function OurBrands(){
+    return <div className="h-screen w-screen">
+
+    </div>
+}
+
+function Process(){
+    return <div className="h-screen w-screen">
+
+    </div>
+}
+
+function InteriorDesign(){
+    return <div className="h-screen w-screen">
+
+    </div>
 }
