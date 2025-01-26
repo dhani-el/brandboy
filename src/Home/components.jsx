@@ -235,25 +235,36 @@ function AMenuLinkItemSmall({link,text,id}){
 }
 
 export function Attraction() {
-    const [animateState,setanimateState] = useState("default")
+    const screenHeight = window.innerHeight
+    const [animateAttrState,setAnimateAttrState] = useState("default")
     const { scrollY } = useScroll();
+
 
     useMotionValueEvent(scrollY, "change", (latest) => {
         switch(true){
-            case latest > 100:{
-                setanimateState("animateIn")
+            case (latest < screenHeight * (20/100)):{
+                setAnimateAttrState("stepOneRev")
             }
             break;
-            case latest < 100:{
-                setanimateState("animateOut")
+            case (latest > screenHeight * (35/100) && latest < screenHeight * (90/100)):{
+                setAnimateAttrState("stepOne")
             }
+            break;
+            case (latest > screenHeight * (90/100)):{
+                setAnimateAttrState("stepOneRev")
+            }
+            break;
+
+            // case latest < 100:{
+            //     setanimateState("animateOut")
+            // }
         }
       })
 
-      const animateIn = {opacity:0,transition:{ease:"easeIn",delay:0.5,duration:0.8}}
-      const animateOut = {opacity:1,transition:{ease:"easeIn",duration:0.5}}
-      const variants = {animateIn,animateOut}
-    return <div className="absolute z-0 w-screen top-0 left-0 overflow-hidden">
-                <video autoPlay muted loop  src={landingVideo} ></video>
-            </div>
+      const stepOne = {width:"70%",transition:{ease:"easeIn",duration:1}}
+      const stepOneRev = {width:"100%",transition:{ease:"easeIn",duration:1}}
+      const variants = {stepOne,stepOneRev}
+    return <motion.div  className="absolute z-0 w-screen landscape:h-[100vh] top-0 left-0 flex items-center justify-center">
+                <motion.video initial={false} variants={variants} animate={animateAttrState} autoPlay muted loop  src={landingVideo} className="w-full" ></motion.video>
+            </motion.div>
 }
