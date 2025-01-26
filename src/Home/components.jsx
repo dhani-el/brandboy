@@ -1,13 +1,13 @@
 import {  useEffect, useState } from "react"
-import {motion,stagger, animate,useScroll} from "motion/react"
+import {motion,stagger, animate,useScroll,useMotionValue,useMotionValueEvent} from "motion/react"
 import MenuImage from "../assets/Images/menuImage.jpg"
 import landingVideo from "../assets/videos/video-cuisiniste-lyon-italian-kitchen.mp4"
 
 
 export function Pinned({children,height}){
 
-    return <div style={{height}} className={` w-full flex justify-center `}>
-                <div className="top-0 left-0 sticky bg-red-600 h-[100vh] w-full">
+    return <div id="pinnedElement" style={{height}} className={` w-full flex justify-center `}>
+                <div className="top-0 left-0 sticky h-[100vh] w-full">
                     {children}
                 </div>
 
@@ -15,10 +15,6 @@ export function Pinned({children,height}){
 }
 
 export function Top(){
-
-    const { scrollYProgress } = useScroll({
-        offset: ["start end", "end end"]
-      })
 
     return <Pinned height={"200vh"}>
             <Header/>
@@ -29,16 +25,55 @@ export function Top(){
 }
 
 export function Header(){
-    return <div id="header" className=" relative z-[1] bg-slate-100 w-full flex items-center justify-center px-6 py-8">
+    const [animateState,setanimateState] = useState("default")
+    const { scrollY } = useScroll();
+
+    useMotionValueEvent(scrollY, "change", (latest) => {
+        switch(true){
+            case latest > 100:{
+                setanimateState("animateIn")
+            }
+            break;
+            case latest < 100:{
+                setanimateState("animateOut")
+            }
+        }
+      })
+
+      const animateIn = {height:"0px",opacity:0,transition:{ease:"easeIn",duration:0.5}}
+      const animateOut = {height:"100%",opacity:1,transition:{ease:"easeIn",delay:0.5,duration:0.5}}
+      const variants = {animateIn,animateOut}
+
+    return <div id="header" className=" relative z-[1]  w-full flex items-center justify-center px-6 py-8">
+                <motion.div initial={false} variants={variants} animate={animateState} id="header-bg" className="w-full h-full bg-slate-100 absolute top-0 left-0 ">
+                </motion.div>
                 <Logo/>
   </div>
 }
 
 export function Logo(){
-    return <a href="/" className="flex items-center fixed top-[1rem] ">
+    const [animateState,setanimateState] = useState("default")
+    const { scrollY } = useScroll();
+
+    useMotionValueEvent(scrollY, "change", (latest) => {
+        switch(true){
+            case latest > 100:{
+                setanimateState("animateIn")
+            }
+            break;
+            case latest < 100:{
+                setanimateState("animateOut")
+            }
+        }
+      })
+
+      const animateIn = {opacity:0,transition:{ease:"easeIn",delay:0.5,duration:0.8}}
+      const animateOut = {opacity:1,transition:{ease:"easeIn",duration:0.5}}
+      const variants = {animateIn,animateOut}
+    return <motion.a initial={false} variants={variants} animate={animateState} href="/" id="logo" className="flex items-center fixed top-[1rem] ">
               <img src="/brandboy.jpg" className="w-[2rem] h-[2rem]" />
               <p className="font-medium font-lexend md:text-2xl">BRANDBOY</p>
-            </a>
+            </motion.a>
 }
 
 export function Navigation({pages=[]}){
@@ -200,6 +235,24 @@ function AMenuLinkItemSmall({link,text,id}){
 }
 
 export function Attraction() {
+    const [animateState,setanimateState] = useState("default")
+    const { scrollY } = useScroll();
+
+    useMotionValueEvent(scrollY, "change", (latest) => {
+        switch(true){
+            case latest > 100:{
+                setanimateState("animateIn")
+            }
+            break;
+            case latest < 100:{
+                setanimateState("animateOut")
+            }
+        }
+      })
+
+      const animateIn = {opacity:0,transition:{ease:"easeIn",delay:0.5,duration:0.8}}
+      const animateOut = {opacity:1,transition:{ease:"easeIn",duration:0.5}}
+      const variants = {animateIn,animateOut}
     return <div className="absolute z-0 w-screen top-0 left-0 overflow-hidden">
                 <video autoPlay muted loop  src={landingVideo} ></video>
             </div>

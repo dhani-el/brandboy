@@ -6,7 +6,3 @@
     font-family: 'lexend';
     src: url("./assets/fonts/LexendGiga-VariableFont_wght.ttf");
   }
-
-#root,body{
-  overflow-x: hidden;
-}
