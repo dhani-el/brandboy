@@ -282,7 +282,7 @@ export function Body(){
 function Introduction(){
     return <div className=" z-10 h-screen w-screen text-slate-950 flex font-lexend font-thin items-center justify-center">
                 <div className="w-[45%] flex flex-col items-center justify-center">
-                    <p className="font-medium text-black pb-2">BrandBoy</p>
+                    <p className="font-medium text-black pb-1">BRANDBOY</p>
                     <p className="text-xs pb-14">Interior Designer Lagos</p>
                     <p className="text-center text-sm w-[90%]" >Italian Kitchen c’est avant tout la passion pour l’aménagement sans compromis. Des projets intemporels avec un accompagnement sur mesure. Nous sommes en challenge permanent pour vous proposer un choix unique, le meilleur des cuisines italiennes, une sélection en  adéquation avec vos envies et votre environnement.</p>
                     <img className="pt-8" src={proof}/>
@@ -292,8 +292,32 @@ function Introduction(){
 }
 
 function Projects(){
-    return <div className="h-screen w-screen">
+    return <div className="h-screen w-screen flex items-center justify-center">
+                <div className="w-[75%] h-[90%]">
+                    <p className="text-3xl font-lexend">PROJECTS</p>
+                    <div>
+                        <ShowCaseMaximizer/>
+                        <div>
+                            <ShowCaser/>
+                            <ShowCaser/>
+                            <ShowCaser/>
+                            <ShowCaser/>
+                        </div>
+                    </div>
+                </div>
+    </div>
+}
 
+function ShowCaser({image,link,text,id}){
+    return <div>
+                <img  src={image} />
+                <AMenuLinkItemSmall  id={id} link={link} text={text} />
+    </div>
+}
+
+function ShowCaseMaximizer({imageSrc}){
+    return <div>
+                <img src={imageSrc} />
     </div>
 }
 
