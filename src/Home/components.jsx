@@ -14,6 +14,17 @@ import max2 from "../assets/Images/A-Les-cuisines-d-arno-cuisiniste-Lyon-22.jpg"
 import max3 from "../assets/Images/A-Les-cuisines-d-arno-cuisiniste-Lyon-43.jpg"
 import max4 from "../assets/Images/A-Les-cuisines-d-arno-cuisiniste-Lyon-cuisine-haut-de-gamme-1.jpg"
 
+import Actus1 from "../assets/Images/Actus-5-cuisine-elegance-blanche-haussmannien-Lyon.jpg"
+import Actus2 from "../assets/Images/Actus-7-cuisine-Fenix-Lyon.jpg"
+import Actus3 from "../assets/Images/Actus-8-cuisine-sur-mesure-Lyon.jpg"
+import Actus4 from "../assets/Images/Actus-10-cuisine-sur-mesure-Lyon.jpg"
+import Actus5 from "../assets/Images/Actus-12-cuisine-sur-mesure-Lyon.jpg"
+import Actus6 from "../assets/Images/Actus-13-cuisine-sur-mesure-Lyon.jpg"
+import Actus7 from "../assets/Images/Actus-14-cuisine-sur-mesure-Lyon.jpg"
+import Actus8 from "../assets/Images/Actus-15-cuisine-sur-mesure-Lyon.jpg"
+
+
+
 
 export function Pinned({children,height}){
 
@@ -262,7 +273,7 @@ function AMenuLinkItemSmall({link,text,id}){
            </motion.a>
 }
 
-function AMenuLinkItemSmallExt({link,text,id,hovering}){
+function AMenuLinkItemSmallExt({link,text,id,hovering,colour}){
 
 
     useEffect(()=>{
@@ -275,7 +286,7 @@ function AMenuLinkItemSmallExt({link,text,id,hovering}){
 
     return <motion.a  href={link} className="flex flex-col px-4">
                 <p className="text-sm font-lexend font-light">{text}</p>
-                <motion.hr id={id} className="h-[0.15rem] w-[0%] bg-red-500" />
+                <motion.hr style={{background:colour}} id={id} className="h-[0.15rem] w-[0%] bg-red-500" />
            </motion.a>
 }
 
@@ -316,6 +327,7 @@ export function Body(){
                     <Projects/>
                     <News/>
                     <Series/>
+                    <RealSeries/>
                     <OurBrands/>
                     <Process/>
                     <InteriorDesign/>
@@ -346,7 +358,7 @@ function Projects(){
                 <div className="w-[75%] h-[90%]">
                     <p className="text-3xl font-lexend relative z-[1]">PROJECTS</p>
                     <motion.div whileInView={{top:"-12%",transition:{duration:1,ease:"easeIn"}}} className="z-[0] relative w-full h-full flex items-center justify-between">
-                        <ShowCaseMaximizer current={currentImage}  imageSrc={maxImages} />
+                        <ShowCaseMaximizer pref={"project"} current={currentImage}  imageSrc={maxImages} />
                         <div className="w-[45%] grid grid-cols-2 grid-rows-2 gap-2   ">
                             {miniImages.map(function(anImage){
                                 return <ShowCaser indicateCurrent={setcurrentImage} id={anImage.id} image={anImage.image} link={anImage.link} text={anImage.text} />
@@ -394,19 +406,19 @@ function ShowCaser({image,link,text,id,indicateCurrent}){
     </motion.div>
 }
 
-function ShowCaseMaximizer({imageSrc,current}){
+function ShowCaseMaximizer({imageSrc,current,pref}){
 
 
     useEffect(()=>{
-        animate(`.imageee`,{opacity:0,scale:1},{duration:1.5})
+        animate(`.${pref}imageee`,{opacity:0,scale:1},{duration:1.5})
         animate(`#imagee${current}`,{opacity:1,scale:1.2},{duration:1,})
     },[current])
 
     return <div className="w-[52%] h-[80%] flex items-center justify-center overflow-hidden relative">
-                <motion.img src={imageSrc[0]}  id="imagee0" className="imageee absolute top-0 left-0" />
-                <motion.img src={imageSrc[1]}  id="imagee1" className="imageee absolute top-0 left-0" />
-                <motion.img src={imageSrc[2]}  id="imagee2" className="imageee absolute top-0 left-0" />
-                <motion.img src={imageSrc[3]}  id="imagee3" className="imageee absolute top-0 left-0" />
+                <motion.img src={imageSrc[0]}  id="imagee0" className={`${pref}imageee absolute top-0 left-0`} />
+                <motion.img src={imageSrc[1]}  id="imagee1" className={`${pref}imageee absolute top-0 left-0`} />
+                <motion.img src={imageSrc[2]}  id="imagee2" className={`${pref}imageee absolute top-0 left-0`} />
+                <motion.img src={imageSrc[3]}  id="imagee3" className={`${pref}imageee absolute top-0 left-0`} />
     </div>
 }
 
@@ -419,7 +431,7 @@ function News(){
     const maxImages = [max1,max2,max3,max4];
     const [currentImage,setcurrentImage] = useState(0)
     return <div className="h-screen w-screen flex flex-col items-center justify-center">
-                <motion.div initial={{top:"12%"}} whileInView={{top:"-12%",transition:{duration:1,ease:"easeIn"}}} className="relative w-[75%] h-[90%] flex flex-col ">
+                <motion.div initial={{top:"5%"}} whileInView={{top:"-12%",transition:{duration:1,ease:"easeIn"}}} className="relative w-[75%] h-[90%] flex flex-col ">
                     <div className="w-[100%] h-[100%]">
                     <motion.div  className="z-[0] relative w-full h-full flex items-center justify-between">
                         <div className="w-[45%] grid grid-cols-2 grid-rows-2 gap-2   ">
@@ -427,7 +439,7 @@ function News(){
                                 return <ShowCaser indicateCurrent={setcurrentImage} id={anImage.id} image={anImage.image} link={anImage.link} text={anImage.text} />
                             })}
                         </div>
-                        <ShowCaseMaximizer current={currentImage}  imageSrc={maxImages} />
+                        <ShowCaseMaximizer pref={"news"} current={currentImage}  imageSrc={maxImages} />
                     </motion.div>
                     </div>
                     <AMenuLinkItemExt text={"NEWS"}/>
@@ -435,11 +447,103 @@ function News(){
     </div>
 }
 
-
 function Series(){
-    return <div className="h-screen w-screen">
-
+    return <div className="h-screen w-screen flex justify-center items-center">
+                <div className="w-[70%] h-[80%]">
+                    <p className="font-lexend font-bold text-3xl z-[1] relative">SERIES</p>
+                    <Carousel />
+                </div>
     </div>
+}
+
+function Carousel(){
+    const images = [{text:"White Wood",link:"",img:Actus1},{text:"White Wood",link:"",img:Actus2},{text:"White Wood",link:"",img:Actus3},{text:"White Wood",link:"",img:Actus4},{text:"White Wood",link:"",img:Actus5},{text:"White Wood",link:"",img:Actus6},{text:"White Wood",link:"",img:Actus7},{text:"White Wood",link:"",img:Actus8}]
+    const [currentImage,setCurrentImage] = useState(0);
+
+    function handleNextClick(){
+        if (currentImage < images.length -1) {
+            setCurrentImage((init)=> init+1)
+        }else{
+            setCurrentImage(()=> 0)
+        }
+    }
+
+    useEffect(function(){
+        
+        animate(".carouselImages",{opacity:0,left:0})
+        if (currentImage > 0) {
+            animate(`#carouselItem${currentImage-1}`,{opacity:0,left:"-5%"},{duration:1,ease:"easeIn"})
+            animate(`#carouselItem${currentImage}`,{opacity:1},{delay:0.2,duration:1,ease:"easeIn"})
+        }else if(currentImage == 0){
+            animate(`#carouselItem0`,{opacity:1},{duration:1,ease:"easeIn"})
+        }
+    },[currentImage])
+
+    return <motion.div initial={{top:"5%"}} whileInView={{top:"-4%",transition:{duration:1,ease:"easeIn"}}} className=" z-0 w-full h-full relative flex items-center ">
+            <div onClick={handleNextClick} className="w-fit absolute right-[-4rem] cursor-pointer">
+                <p className="font-lexend font-medium text-slate-400 text-[5rem]">&#10093;</p>
+            </div>
+            <div className="w-full h-full relative overflow-hidden">
+                {images.map(function(image,index){
+                    return <CarouselItem img={image.img} id={`carouselItem${index}`} text={image.text} link={image.link}/>
+                })}
+            </div>
+    </motion.div>
+}
+
+function CarouselItem({img,text,link,id}){
+    return <a href={link} id={id} className="carouselImages w-full h-full flex items-center justify-center cursor-pointer absolute top-0 left-0 ]">
+                <img src={img}/>
+                <div className="absolute w-fit p-6 bg-[rgba(255,255,255,0.78)] font-lexend flex flex-col justify-center items-center" >
+                    <p className="font-medium">"{text}"</p>
+                    <p className="font-thin text-xs">"{text}"</p>
+                </div>
+    </a>
+}
+
+function RealSeries(){
+    const images = []
+    return <div className="h-screen w-screen grid ">
+                {images.map(function(image,index){
+                    return <ShowCaser2 image={image.img} id={`carouselItem${index}`} text={image.text} link={image.link}/>
+                })}
+    </div>
+}
+
+function ShowCaser2({image,link,text,id}){
+
+    const [hovering,setHovering] = useState(false);
+
+    function handleHoverStart(){
+        setHovering(()=>true);
+    }
+    function handleHoverEnd(){
+        setHovering(()=>false);
+    }
+
+    const imgVariants = {
+        animIn:{
+            scale:1.4,
+            transition:{
+                duration:0.5,
+                ease:"easeIn"
+            }
+        },
+        animOut:{
+            scale:1,
+            transition:{
+                duration:0.5,
+                ease:"easeIn"
+            }
+        }
+    }
+
+    return <motion.div whileInView={{top:"-1%"}} onHoverStart={handleHoverStart} onHoverEnd={handleHoverEnd} className="relative">
+                <div className="overflow-hidden">
+                    <motion.img initial={false} variants={imgVariants} animate={hovering?"animIn":"animOut"} src={image} />
+                </div>
+                <AMenuLinkItemSmallExt hovering={hovering} id={id} link={link} text={text} />
+    </motion.div>
 }
 
 function OurBrands(){
