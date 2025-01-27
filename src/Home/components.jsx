@@ -1,9 +1,18 @@
-import {  useEffect, useState } from "react"
-import {motion,stagger, animate,useScroll,useMotionValue,useMotionValueEvent} from "motion/react"
+import {  useEffect, useRef, useState } from "react"
+import {motion,stagger, animate,useScroll,useMotionValue,useMotionValueEvent, easeOut, useInView} from "motion/react"
 import MenuImage from "../assets/Images/menuImage.jpg"
 import landingVideo from "../assets/videos/video-cuisiniste-lyon-italian-kitchen.mp4"
 import proof from "../assets/Images/proof.png"
 
+import mini1 from "../assets/Images/A-Les-cuisines-d-arno-cuisiniste-Lyon-3-mini.jpg"
+import mini2 from "../assets/Images/A-Les-cuisines-d-arno-cuisiniste-Lyon-22-mini.jpg"
+import mini3 from "../assets/Images/A-Les-cuisines-d-arno-cuisiniste-Lyon-43-mini.jpg"
+import mini4 from "../assets/Images/A-Les-cuisines-d-arno-cuisiniste-Lyon-cuisine-haut-de-gamme-1-mini.jpg"
+
+import max1 from "../assets/Images/A-Les-cuisines-d-arno-cuisiniste-Lyon-3.jpg"
+import max2 from "../assets/Images/A-Les-cuisines-d-arno-cuisiniste-Lyon-22.jpg"
+import max3 from "../assets/Images/A-Les-cuisines-d-arno-cuisiniste-Lyon-43.jpg"
+import max4 from "../assets/Images/A-Les-cuisines-d-arno-cuisiniste-Lyon-cuisine-haut-de-gamme-1.jpg"
 
 
 export function Pinned({children,height}){
@@ -20,9 +29,7 @@ export function Top(){
 
     return <Pinned height={"200vh"}>
             <Header/>
-            <MenuComponent/>
             <Attraction/>
-            <Hamburger/>
           </Pinned>
 }
 
@@ -135,7 +142,7 @@ export function Hamburger(){
         openMenu?transitionToMenu():transitionFromMenu()
     },[openMenu])
 
-    return <motion.div onClick={handleClick}  onHoverStart={()=>{handleHoverStart()}} onHoverEnd={()=>{handleHoverEnd()}} className="fixed right-[2rem] top-[0.5rem] bg-white flex flex-col h-[3rem] justify-around p-4  z-10">
+    return <motion.div onClick={handleClick}  onHoverStart={()=>{handleHoverStart()}} onHoverEnd={()=>{handleHoverEnd()}} className="fixed right-[2rem] top-[0.5rem] bg-white flex flex-col h-[3rem] justify-around p-4  z-[100]">
                 <motion.div initial={{width:"0%"}} animate={(darkenBackground?{width:"100%",opacity:1,transition:{duration:0.5}}:{width:"0%",opacity:0,transition:{duration:0.5}})} className="absolute z-0 h-full bg-black right-0"></motion.div>
                 <OneHamburgerLine id={"line1"}  animate={darkenBackground}/>
                 <OneHamburgerLine id={"line2"} animate={darkenBackground}/>
@@ -152,7 +159,7 @@ function OneHamburgerLine({id}){
 }
 
 export function MenuComponent(){
-    return <motion.div id="menu" initial={{display:"none",opacity:0,height:"0%"}} className="cursor-pointer w-screen fixed left-0 bottom-0 bg-white z-[2] p-16 justify-between items-center">
+    return <motion.div id="menu" initial={{display:"none",opacity:0,height:"0%"}} className="cursor-pointer w-screen fixed left-0 bottom-0 bg-white z-[99] p-16 justify-between items-center">
                 <motion.div className="w-[25%] h-full overflow-hidden flex items-center justify-center ">
                     <motion.img src={MenuImage} className="h-full max-w-none"/>
                 </motion.div>
@@ -212,6 +219,25 @@ function AMenuLinkItem({link,text}){
            </motion.a>
 }
 
+function AMenuLinkItemExt({link,text}){
+    const ref = useRef(null);
+    const isInView = useInView(ref)
+
+
+    useEffect(()=>{
+        if (isInView) {
+            animate(`#${text}`,{width:"100%"},{duration:1})
+        }else{
+            animate(`#${text}`,{width:"0%"},{duration:1})
+        }
+    },[isInView])
+
+    return <motion.a ref={ref} href={link} className="flex w-fit flex-col self-end">
+                <p className="text-2xl font-lexend font-light">{text}</p>
+                <motion.hr id={text} className="h-[0.2rem] w-[0%] bg-red-500" />
+           </motion.a>
+}
+
 function AMenuLinkItemSmall({link,text,id}){
     const [hovering,setHovering] = useState(false);
 
@@ -232,7 +258,24 @@ function AMenuLinkItemSmall({link,text,id}){
 
     return <motion.a onHoverStart={handleHoverStart} onHoverEnd={handleHoverEnd} href={link} className="flex flex-col px-4">
                 <p className="text-sm font-lexend font-light">{text}</p>
-                <motion.hr id={id} className="h-[0.1rem] w-[0%] bg-red-500" />
+                <motion.hr id={id} className="h-[0.15rem] w-[0%] bg-red-500" />
+           </motion.a>
+}
+
+function AMenuLinkItemSmallExt({link,text,id,hovering}){
+
+
+    useEffect(()=>{
+        if (hovering) {
+            animate(`#${id}`,{width:"100%",transition:{duration:0.5}})
+        }else{
+            animate(`#${id}`,{width:"0%",transition:{duration:0.5}})
+        }
+    },[hovering])
+
+    return <motion.a  href={link} className="flex flex-col px-4">
+                <p className="text-sm font-lexend font-light">{text}</p>
+                <motion.hr id={id} className="h-[0.15rem] w-[0%] bg-red-500" />
            </motion.a>
 }
 
@@ -292,40 +335,106 @@ function Introduction(){
 }
 
 function Projects(){
+    const miniImages = [{image:mini1,id:"img0",link:"",text:"Marble/verte"}
+                    ,{image:mini2,id:"img1",link:"",text:"Marble/verte"}
+                    ,{image:mini3,id:"img2",link:"",text:"Marble/verte"}
+                    ,{image:mini4,id:"img3",link:"",text:"Marble/verte"
+                }];
+    const maxImages = [max1,max2,max3,max4];
+    const [currentImage,setcurrentImage] = useState(0)
     return <div className="h-screen w-screen flex items-center justify-center">
                 <div className="w-[75%] h-[90%]">
-                    <p className="text-3xl font-lexend">PROJECTS</p>
-                    <div>
-                        <ShowCaseMaximizer/>
-                        <div>
-                            <ShowCaser/>
-                            <ShowCaser/>
-                            <ShowCaser/>
-                            <ShowCaser/>
+                    <p className="text-3xl font-lexend relative z-[1]">PROJECTS</p>
+                    <motion.div whileInView={{top:"-12%",transition:{duration:1,ease:"easeIn"}}} className="z-[0] relative w-full h-full flex items-center justify-between">
+                        <ShowCaseMaximizer current={currentImage}  imageSrc={maxImages} />
+                        <div className="w-[45%] grid grid-cols-2 grid-rows-2 gap-2   ">
+                            {miniImages.map(function(anImage){
+                                return <ShowCaser indicateCurrent={setcurrentImage} id={anImage.id} image={anImage.image} link={anImage.link} text={anImage.text} />
+                            })}
                         </div>
-                    </div>
+                    </motion.div>
                 </div>
     </div>
 }
 
-function ShowCaser({image,link,text,id}){
-    return <div>
-                <img  src={image} />
-                <AMenuLinkItemSmall  id={id} link={link} text={text} />
-    </div>
+function ShowCaser({image,link,text,id,indicateCurrent}){
+
+    const [hovering,setHovering] = useState(false);
+
+    function handleHoverStart(){
+        indicateCurrent(()=>id.at(-1))
+        setHovering(()=>true);
+    }
+    function handleHoverEnd(){
+        setHovering(()=>false);
+    }
+
+    const imgVariants = {
+        animIn:{
+            scale:1.4,
+            transition:{
+                duration:0.5,
+                ease:"easeIn"
+            }
+        },
+        animOut:{
+            scale:1,
+            transition:{
+                duration:0.5,
+                ease:"easeIn"
+            }
+        }
+    }
+
+    return <motion.div onHoverStart={handleHoverStart} onHoverEnd={handleHoverEnd} className="">
+                <div className="overflow-hidden">
+                    <motion.img initial={false} variants={imgVariants} animate={hovering?"animIn":"animOut"} src={image} />
+                </div>
+                <AMenuLinkItemSmallExt hovering={hovering} id={id} link={link} text={text} />
+    </motion.div>
 }
 
-function ShowCaseMaximizer({imageSrc}){
-    return <div>
-                <img src={imageSrc} />
+function ShowCaseMaximizer({imageSrc,current}){
+
+
+    useEffect(()=>{
+        animate(`.imageee`,{opacity:0,scale:1},{duration:1.5})
+        animate(`#imagee${current}`,{opacity:1,scale:1.2},{duration:1,})
+    },[current])
+
+    return <div className="w-[52%] h-[80%] flex items-center justify-center overflow-hidden relative">
+                <motion.img src={imageSrc[0]}  id="imagee0" className="imageee absolute top-0 left-0" />
+                <motion.img src={imageSrc[1]}  id="imagee1" className="imageee absolute top-0 left-0" />
+                <motion.img src={imageSrc[2]}  id="imagee2" className="imageee absolute top-0 left-0" />
+                <motion.img src={imageSrc[3]}  id="imagee3" className="imageee absolute top-0 left-0" />
     </div>
 }
 
 function News(){
-    return <div className="h-screen w-screen">
-
+    const miniImages = [{image:mini1,id:"img0",link:"",text:"Marble/verte"}
+                    ,{image:mini2,id:"img1",link:"",text:"Marble/verte"}
+                    ,{image:mini3,id:"img2",link:"",text:"Marble/verte"}
+                    ,{image:mini4,id:"img3",link:"",text:"Marble/verte"
+                }];
+    const maxImages = [max1,max2,max3,max4];
+    const [currentImage,setcurrentImage] = useState(0)
+    return <div className="h-screen w-screen flex flex-col items-center justify-center">
+                <motion.div initial={{top:"12%"}} whileInView={{top:"-12%",transition:{duration:1,ease:"easeIn"}}} className="relative w-[75%] h-[90%] flex flex-col ">
+                    <div className="w-[100%] h-[100%]">
+                    <motion.div  className="z-[0] relative w-full h-full flex items-center justify-between">
+                        <div className="w-[45%] grid grid-cols-2 grid-rows-2 gap-2   ">
+                            {miniImages.map(function(anImage){
+                                return <ShowCaser indicateCurrent={setcurrentImage} id={anImage.id} image={anImage.image} link={anImage.link} text={anImage.text} />
+                            })}
+                        </div>
+                        <ShowCaseMaximizer current={currentImage}  imageSrc={maxImages} />
+                    </motion.div>
+                    </div>
+                    <AMenuLinkItemExt text={"NEWS"}/>
+                </motion.div>
     </div>
 }
+
 
 function Series(){
     return <div className="h-screen w-screen">
