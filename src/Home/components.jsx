@@ -1,5 +1,6 @@
 import {  useEffect, useRef, useState } from "react"
-import {motion,stagger, animate,useScroll,useMotionValue,useMotionValueEvent, easeOut, useInView} from "motion/react"
+import {motion,stagger, animate,useScroll,useMotionValueEvent, useInView} from "motion/react"
+import { Setting5,Home,Ruler, I3Dcube } from "iconsax-react"
 import MenuImage from "../assets/Images/menuImage.jpg"
 import landingVideo from "../assets/videos/video-cuisiniste-lyon-italian-kitchen.mp4"
 import proof from "../assets/Images/proof.png"
@@ -242,22 +243,22 @@ function AMenuLinkItem({link,text}){
            </motion.a>
 }
 
-function AMenuLinkItemExt({link,text}){
+function AMenuLinkItemExt({link,text,id}){
     const ref = useRef(null);
     const isInView = useInView(ref)
 
 
     useEffect(()=>{
         if (isInView) {
-            animate(`#${text}`,{width:"100%"},{duration:1})
+            animate(`#${id}`,{width:"100%"},{duration:1})
         }else{
-            animate(`#${text}`,{width:"0%"},{duration:1})
+            animate(`#${id}`,{width:"0%"},{duration:1})
         }
     },[isInView])
 
     return <motion.a ref={ref} href={link} className="flex w-fit flex-col self-end">
                 <p className="text-2xl font-lexend font-light">{text}</p>
-                <motion.hr id={text} className="h-[0.2rem] w-[0%] bg-red-500" />
+                <motion.hr id={id} className="h-[0.2rem] w-[0%] bg-red-500" />
            </motion.a>
 }
 
@@ -296,8 +297,8 @@ function AMenuLinkItemSmallExt({link,text,id,hovering,colour}){
         }
     },[hovering])
 
-    return <motion.a  href={link} className="flex flex-col px-4 w-fit">
-                <p className="text-sm font-lexend font-light">{text}</p>
+    return <motion.a  href={link} className="flex flex-col w-fit">
+                <p className="text-[0.7rem] font-lexend font-light">{text}</p>
                 <motion.hr style={{background:colour}} id={id} className="h-[0.15rem] w-[0%] bg-red-500" />
            </motion.a>
 }
@@ -337,12 +338,12 @@ export function Body(){
     return <motion.div whileInView={{top:"-10%",transition:{duration:0.5}}}  className=" z-10 w-full relative left-0">
                     <Introduction/>
                     <Projects/>
-                    <News/>
+                    <Acheivements/>
                     <Series/>
                     <RealSeries/>
                     <OurBrands/>
                     <Process/>
-                    <InteriorDesign/>
+                    <Footer/>
     </motion.div>
 }
 
@@ -434,7 +435,7 @@ function ShowCaseMaximizer({imageSrc,current,pref}){
     </div>
 }
 
-function News(){
+function Acheivements(){
     const miniImages = [{image:mini1,id:"img0",link:"",text:"Marble/verte"}
                     ,{image:mini2,id:"img1",link:"",text:"Marble/verte"}
                     ,{image:mini3,id:"img2",link:"",text:"Marble/verte"}
@@ -454,7 +455,7 @@ function News(){
                         <ShowCaseMaximizer pref={"news"} current={currentImage}  imageSrc={maxImages} />
                     </motion.div>
                     </div>
-                    <AMenuLinkItemExt text={"NEWS"}/>
+                    <AMenuLinkItemExt id={"acheivements"} text={"All Our Acheivements"}/>
                 </motion.div>
     </div>
 }
@@ -611,13 +612,13 @@ function OurBrands(){
 
     return <div className="h-screen w-screen">
                     <div className="w-full flex flex-col items-center justify-center">
-                        <div className="w-[70%] flex flex-col items-center justify-center">
-                            <p className="font-lexend font-bold text-3xl z-[1] relative self-start">OUR BRANDS</p>
+                        <div className="w-[70%] flex flex-col items-center gap-[3rem] justify-center">
+                            <p className="font-lexend font-medium text-3xl z-[1] relative ">OUR BRANDS</p>
                             <div className="w-[100%] flex justify-between">
                                 <div className="relative w-[48%] overflow-hidden">
-                                    <motion.div whileHover={{opacity:0,transition:{duration:0.5}}} className="absolute top-0 left-0 w-full h-full bg-[rgba(255,255,255,0.54)]">
+                                    {/* <motion.div whileHover={{opacity:0,transition:{duration:0.5}}} className="absolute top-0 left-0 w-full h-full bg-[rgba(255,255,255,0.54)]">
 
-                                    </motion.div>
+                                    </motion.div> */}
                                     <motion.img src={Brand1}  />
                                 </div>
                                 <div className="w-[48%] grid grid-rows-2 grid-cols-2">
@@ -635,13 +636,116 @@ function OurBrands(){
 }
 
 function Process(){
-    return <div className="h-screen w-screen">
-
+    const processLine = [{Icon:Setting5,title:"PROJECT DEFINITION",description:`Lorem ipsum dolor sit amet consectetur adipisicing elit. Error tenetur ut unde maiores consequatur exercitationem rem iure, accusantium pariatur ratione.`}
+    ,{Icon:Home,title:"PROPOSALS & PLANS",description:`Lorem ipsum dolor sit amet consectetur adipisicing elit. Error tenetur ut unde maiores consequatur exercitationem rem iure, accusantium pariatur ratione.`}
+    ,{Icon:Ruler,title:"REMOTE SAMPLES PROJECTS",description:`Lorem ipsum dolor sit amet consectetur adipisicing elit. Error tenetur ut unde maiores consequatur exercitationem rem iure, accusantium pariatur ratione.`}
+    ,{Icon:I3Dcube,title:"CONSTRUCTION SITE MANAGEMENT",description:`Lorem ipsum dolor sit amet consectetur adipisicing elit. Error tenetur ut unde maiores consequatur exercitationem rem iure, accusantium pariatur ratione.`}
+                        ]
+    return <div className="h-screen w-screen flex items-center justify-center">
+        <div className="w-[70%]">
+            <WordAnimator word={"PROCESS"}/>
+            <div className="w-full pt-12">
+                {processLine.map((aProcess,index)=>{
+                    return <Aprocess description={aProcess.description} title={aProcess.title} Icon={<aProcess.Icon/>} index={index} />
+                })}
+                <HorizontalLine/>
+            </div>
+        </div>
     </div>
 }
 
-function InteriorDesign(){
-    return <div className="h-screen w-screen">
+function Aprocess({Icon, title, description,index}){
+    const ref = useRef(null)
+    const component_is_in_view = useInView(ref);
 
+    useEffect(()=>{
+        if (component_is_in_view) {
+            animate(`.processItem${index}`,{top:"0rem",opacity:1},{duration:0.5,delay:stagger(0.2)})
+        }else{
+            animate(`.processItem${index}`,{top:"2rem",opacity:0.4})
+        }
+    },[component_is_in_view])
+    return <motion.div ref={ref} className="w-full h-min overflow-hidden">
+                <HorizontalLine/>
+                <div className="py-6 flex justify-between items-start font-lexend">
+                    <motion.div className={`processItem${index} relative w-[9%]`}>
+                        {Icon}
+                    </motion.div>
+                    <motion.p  className={`processItem${index} relative w-[30%]`}>{title}</motion.p>
+                    <motion.p  className={`processItem${index} relative w-[60%] font-light text-xs`}>{description}</motion.p>
+                </div>
+            </motion.div>
+}
+
+function HorizontalLine(){
+    return <motion.hr initial={{height:"0.25rem"}} whileInView={{backgroundColor:"rgba(71,85,105,0.64)",width:"100%",height:"0.1rem",transition:{duration:1}}} className="bg-[rgba(71,85,105,1)] w-[0%]" />
+}
+
+function WordAnimator({word=""}){
+    const ref = useRef(null)
+    const text_is_in_view = useInView(ref);
+
+    useEffect(()=>{
+        if (text_is_in_view) {
+            animate(".letters",{top:"0rem"},{duration:0.5,delay:stagger(0.2)})
+        }else{
+            animate(".letters",{top:"2rem"})
+        }
+    },[text_is_in_view])
+
+    return <motion.div ref={ref} className="h-min overflow-hidden" >
+                {[...word].map(function(letter){
+                    return <motion.p   className="text-3xl font-lexend font-medium letters inline top-[2rem] relative">{letter}</motion.p>
+                })}
+            </motion.div>
+}
+
+function Footer(){
+    return <div className="h-screen w-screen flex items-center justify-center">
+        <div className="w-[70%] h-[80%] flex flex-col items-center justify-center">
+            <FooterLogo/>
+            <FooterBody/>
+        </div>
     </div>
+}
+
+function FooterLogo(){
+    return <motion.a  href="/" id="footerlogo" className="flex items-center relative  w-full justify-center">
+                <img src="/brandboy.jpg" className="w-[2rem] h-[2rem]" />
+                <p className="font-medium font-lexend md:text-2xl">BRANDBOY</p>
+  </motion.a>
+}
+
+function FooterBody(){
+    return <motion.div  className="cursor-pointer w-full left-0 bottom-0 bg-white z-[99] p-16 justify-between items-center">
+    <motion.div className="w-[70%] flex items-center justify-around">
+        <motion.div className="">
+            <AMenuLinkItem text={"Welcome"}/>
+            <AMenuLinkItem text={"Acheivements"}/>
+            <AMenuLinkItem text={"Series"}/>
+            <AMenuLinkItem text={"Ambiances"}/>
+            <AMenuLinkItem text={"Contact"}/>
+        </motion.div>
+        <motion.div>
+            <div className="flex">
+                <motion.div className="border-l-[0.06rem] border-gray-300 border-solid">
+                    <AMenuLinkItemSmall text={"About Us"} id={"About"}/>
+                    <AMenuLinkItemSmall text={"Our Brands"} id={"Brands"}/>
+                    <AMenuLinkItemSmall text={"Showroom"} id={"Showroom"}/>
+                </motion.div>
+                <motion.div className="border-l-[0.06rem] border-gray-300 border-solid">
+                    <AMenuLinkItemSmall text={"Your Project"} id={"roject"}/>
+                    <AMenuLinkItemSmall text={"Personalization"} id={"Personalization"}/>
+                    <AMenuLinkItemSmall text={"Layout"} id={"Layout"}/>
+                </motion.div>
+                <motion.div className="border-l-[0.06rem] border-gray-300 border-solid">
+                    <AMenuLinkItemSmall text={"Instagram"} id={"Instagram"}/>
+                    <AMenuLinkItemSmall text={"Facebook"} id={"Facebook"}/>
+                    <AMenuLinkItemSmall text={"Houzz"} id={"Houzz"}/>
+                </motion.div>
+            </div>
+            <p className="text-3xl text-red-500 font-lexend pt-4">Brandboy@gmail.com</p>
+        </motion.div>
+    </motion.div>
+</motion.div>
 }
