@@ -23,8 +23,20 @@ import Actus6 from "../assets/Images/Actus-13-cuisine-sur-mesure-Lyon.jpg"
 import Actus7 from "../assets/Images/Actus-14-cuisine-sur-mesure-Lyon.jpg"
 import Actus8 from "../assets/Images/Actus-15-cuisine-sur-mesure-Lyon.jpg"
 
+import Series1 from "../assets/Images/Series-cuisine-blanche-et-bois.jpg"
+import Series2 from "../assets/Images/Series-cuisine-blanche-noire-et-bois.jpg"
+import Series3 from "../assets/Images/Series-cuisine-bleue.jpg"
+import Series4 from "../assets/Images/Series-cuisine-ciment.jpg"
+import Series5 from "../assets/Images/Series-cuisine-intemporelle.jpg"
+import Series6 from "../assets/Images/Series-cuisine-marbre.jpg"
+import Series7 from "../assets/Images/Series-cuisine-noire-et-bois.jpg"
+import Series8 from "../assets/Images/Series-cuisine-verriere.jpg"
 
-
+import Brand1 from "../assets/Images/zecchinon-cuisines-italiennes.jpg"
+import Brand2 from "../assets/Images/ronda-design.jpg"
+import Brand3 from "../assets/Images/colico.jpg"
+import Brand4 from "../assets/Images/aster.jpg"
+import Brand5 from "../assets/Images/armony.jpg"
 
 export function Pinned({children,height}){
 
@@ -284,7 +296,7 @@ function AMenuLinkItemSmallExt({link,text,id,hovering,colour}){
         }
     },[hovering])
 
-    return <motion.a  href={link} className="flex flex-col px-4">
+    return <motion.a  href={link} className="flex flex-col px-4 w-fit">
                 <p className="text-sm font-lexend font-light">{text}</p>
                 <motion.hr style={{background:colour}} id={id} className="h-[0.15rem] w-[0%] bg-red-500" />
            </motion.a>
@@ -312,8 +324,8 @@ export function Attraction() {
         }
       })
 
-    const stepOne = {width:"70%",transition:{ease:"easeOut",duration:1}}
-    const stepOneRev = {width:"100%",transition:{ease:"easeOut",duration:1}}
+    const stepOne = {width:"70%",transition:{ease:"easeOut",duration:0.5}}
+    const stepOneRev = {width:"100%",transition:{ease:"easeInOut",duration:1}}
     const variants = {stepOne,stepOneRev}
     return <motion.div  className="absolute z-0 w-screen landscape:h-[100vh] top-0 left-0 flex items-center justify-center overflow-hidden">
                 <motion.video initial={false} variants={variants} animate={animateAttrState} autoPlay muted loop  src={landingVideo} className="w-full" ></motion.video>
@@ -502,11 +514,24 @@ function CarouselItem({img,text,link,id}){
 }
 
 function RealSeries(){
-    const images = []
-    return <div className="h-screen w-screen grid ">
-                {images.map(function(image,index){
-                    return <ShowCaser2 image={image.img} id={`carouselItem${index}`} text={image.text} link={image.link}/>
-                })}
+    const images = [{img:Series1,id:"seriesImg0",link:"",text:"Marble/verte"}
+    ,{img:Series2,id:"seriesImg1",link:"",text:"Marble/verte"}
+    ,{img:Series3,id:"seriesImg2",link:"",text:"Marble/verte"}
+    ,{img:Series4,id:"seriesImg3",link:"",text:"Marble/verte"},
+    ,{img:Series5,id:"seriesImg1",link:"",text:"Marble/verte"}
+    ,{img:Series6,id:"seriesImg2",link:"",text:"Marble/verte"}
+    ,{img:Series7,id:"seriesImg3",link:"",text:"Marble/verte"}
+    ,{img:Series8,id:"seriesImg3",link:"",text:"Marble/verte"}
+]
+    return <div className="h-screen w-screen flex flex-col justify-center items-center">
+                <div className="w-[70%] ">
+                    <p className="font-lexend font-bold text-3xl z-[1] relative self-start">REAL</p>
+                    <motion.div initial={{top:"5%"}} whileInView={{top:"-2%",transition:{duration:1,ease:"easeIn"}}} className="relative grid grid-cols-4 gap-6 items-center justify-center w-full">
+                        {images.map(function(image,index){
+                            return <ShowCaser2 image={image.img} id={`RealSeries${index}`} text={image.text} link={image.link}  />
+                        })}
+                    </motion.div>
+                </div>
     </div>
 }
 
@@ -523,7 +548,7 @@ function ShowCaser2({image,link,text,id}){
 
     const imgVariants = {
         animIn:{
-            scale:1.4,
+            scale:1.2,
             transition:{
                 duration:0.5,
                 ease:"easeIn"
@@ -538,17 +563,74 @@ function ShowCaser2({image,link,text,id}){
         }
     }
 
-    return <motion.div whileInView={{top:"-1%"}} onHoverStart={handleHoverStart} onHoverEnd={handleHoverEnd} className="relative">
-                <div className="overflow-hidden">
+    return <motion.div whileInView={{top:"-1%"}} onHoverStart={handleHoverStart} onHoverEnd={handleHoverEnd} className="relative w-full h-full ">
+                <div className="overflow-hidden w-full ">
                     <motion.img initial={false} variants={imgVariants} animate={hovering?"animIn":"animOut"} src={image} />
                 </div>
-                <AMenuLinkItemSmallExt hovering={hovering} id={id} link={link} text={text} />
+                <AMenuLinkItemSmallExt hovering={hovering}  colour={"black"} id={id} link={link} text={text} />
+    </motion.div>
+}
+function ShowCaser3({image,link}){
+
+    const [hovering,setHovering] = useState(false);
+
+    function handleHoverStart(){
+        setHovering(()=>true);
+    }
+    function handleHoverEnd(){
+        setHovering(()=>false);
+    }
+
+    const imgVariants = {
+        animIn:{
+            scale:1.2,
+            transition:{
+                duration:0.5,
+                ease:"easeIn"
+            }
+        },
+        animOut:{
+            scale:1,
+            transition:{
+                duration:0.5,
+                ease:"easeIn"
+            }
+        }
+    }
+
+    return <motion.div whileInView={{top:"-1%"}} onHoverStart={handleHoverStart} onHoverEnd={handleHoverEnd} className="relative w-full h-full overflow-hidden">
+                <motion.div whileHover={{opacity:0,transition:{duration:1,ease:"easeIn"}}} className="absolute top-0 left-0 w-full h-full bg-[rgba(255,255,255,0.54)]">
+                </motion.div>
+                <a href={link} className="flex overflow-hidden w-full ">
+                    <motion.img initial={false} variants={imgVariants} animate={hovering?"animIn":"animOut"} src={image} />
+                </a>
     </motion.div>
 }
 
 function OurBrands(){
-    return <div className="h-screen w-screen">
 
+    return <div className="h-screen w-screen">
+                    <div className="w-full flex flex-col items-center justify-center">
+                        <div className="w-[70%] flex flex-col items-center justify-center">
+                            <p className="font-lexend font-bold text-3xl z-[1] relative self-start">OUR BRANDS</p>
+                            <div className="w-[100%] flex justify-between">
+                                <div className="relative w-[48%] overflow-hidden">
+                                    <motion.div whileHover={{opacity:0,transition:{duration:0.5}}} className="absolute top-0 left-0 w-full h-full bg-[rgba(255,255,255,0.54)]">
+
+                                    </motion.div>
+                                    <motion.img src={Brand1}  />
+                                </div>
+                                <div className="w-[48%] grid grid-rows-2 grid-cols-2">
+                                    <ShowCaser3 image={Brand4} />
+                                    <ShowCaser3 image={Brand5} />
+                                    <ShowCaser3 image={Brand2} />
+                                    <ShowCaser3 image={Brand3} />
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
     </div>
 }
 
