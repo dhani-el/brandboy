@@ -336,8 +336,8 @@ export function Attraction() {
 
 export function Body(){
     const isLandscape = useMedia('(orientation: landscape)');
-
-    return <motion.div whileInView={{top:(isLandscape?"-10%":"-2%"),transition:{duration:0.5}}}  className="bg-white z-10 w-full relative left-0 overflow-x-hidden">
+    const isVeryWide = useMedia({minWidth: '1800px'});
+    return <motion.div whileInView={{top:(isLandscape && !isVeryWide?"-10%":"-2%"),transition:{duration:0.5}}}  className="bg-white z-10 w-full relative left-0 overflow-x-hidden">
                     <Introduction/>
                     <Projects/>
                     <Acheivements/>
@@ -362,7 +362,7 @@ function Introduction(){
 }
 
 function Projects(){
-
+    const isVeryWide = useMedia({minWidth: '1800px'});
     const miniImages = [{image:mini1,id:"img0",link:"",text:"MARBLE/VERTE"}
                     ,{image:mini2,id:"img1",link:"",text:"MARBLE/VERTE"}
                     ,{image:mini3,id:"img2",link:"",text:"MARBLE/VERTE"}
@@ -370,10 +370,10 @@ function Projects(){
                 }];
     const maxImages = [max1,max2,max3,max4];
     const [currentImage,setcurrentImage] = useState(0)
-    return <div className="portrait:lg:h-[50vh] landscape:lg:h-screen w-screen flex items-center justify-center">
+    return <div className="portrait:lg:h-[50vh] landscape:lg:h-screen landscape:xl:h-[150vh] w-screen flex items-center justify-center">
                 <div className="w-[80%] lg:w-[75%] h-[90%]">
                     <p className="text-3xl font-lexend relative z-[1]">PROJECTS</p>
-                    <motion.div whileInView={{top:"-12%",transition:{duration:1,ease:"easeIn"}}} className="z-[0] relative w-full h-full flex flex-col lg:flex-row items-center lg:justify-between">
+                    <motion.div whileInView={{top:isVeryWide?"-5%":"-12%",transition:{duration:1,ease:"easeIn"}}} className="z-[0] relative w-full h-full flex flex-col lg:flex-row items-center lg:justify-between">
                         <ShowCaseMaximizer pref={"project"} current={currentImage}  imageSrc={maxImages} />
                         <div className="lg:w-[45%] grid lg:grid-cols-2 lg:grid-rows-2 gap-4 lg:gap-2   ">
                             {miniImages.map(function(anImage){
@@ -439,6 +439,8 @@ function ShowCaseMaximizer({imageSrc,current,pref}){
 }
 
 function Acheivements(){
+    const isVeryWide = useMedia({minWidth: '1800px'});
+
     const miniImages = [{image:mini1,id:"img0",link:"",text:"Marble/verte"}
                     ,{image:mini2,id:"img1",link:"",text:"Marble/verte"}
                     ,{image:mini3,id:"img2",link:"",text:"Marble/verte"}
@@ -446,8 +448,8 @@ function Acheivements(){
                 }];
     const maxImages = [max1,max2,max3,max4];
     const [currentImage,setcurrentImage] = useState(0)
-    return <div className="portrait:lg:h-[50vh] landscape:lg:h-screen w-screen flex flex-col items-center justify-center">
-                <motion.div initial={{top:"5%"}} whileInView={{top:"-12%",transition:{duration:1,ease:"easeIn"}}} className="relative w-[75%] h-[95%] flex flex-col ">
+    return <div className="portrait:lg:h-[50vh] landscape:lg:h-screen landscape:xl:h-[150vh] w-screen flex flex-col items-center justify-center">
+                <motion.div initial={{top:"5%"}} whileInView={{top:isVeryWide?"-5%":"-12%",transition:{duration:1,ease:"easeIn"}}} className="relative w-[75%] h-[95%] flex flex-col ">
                     <div className="w-[100%] h-[100%] mb-8">
                     <motion.div  className="z-[0] relative w-full h-full flex items-center justify-between">
                         <div className="lg:w-[45%] grid lg:grid-cols-2 lg:grid-rows-2 gap-4 lg:gap-2   ">
@@ -529,7 +531,7 @@ function RealSeries(){
     ,{img:Series7,id:"seriesImg3",link:"",text:"Marble/verte"}
     ,{img:Series8,id:"seriesImg3",link:"",text:"Marble/verte"}
 ]
-    return <div className="portrait:lg:h-[50vh] landscape:lg:h-screen w-screen flex flex-col justify-center items-center">
+    return <div className="portrait:lg:h-[50vh] landscape:lg:h-screen landscape:xl:h-[150vh] w-screen flex flex-col justify-center items-center">
                 <div className=" w-[80%] lg:w-[70%] ">
                     <p className="font-lexend font-bold text-3xl z-[1] relative self-start">REAL</p>
                     <motion.div initial={{top:"5%"}} whileInView={{top:"-2%",transition:{duration:1,ease:"easeIn"}}} className="relative grid grid-cols-2 lg:grid-cols-4 gap-6 items-center justify-center w-full">
@@ -615,7 +617,7 @@ function ShowCaser3({image,link}){
 
 function OurBrands(){
 
-    return <div className="portrait:lg:h-[50vh] landscape:lg:h-screen w-screen">
+    return <div className="portrait:lg:h-[50vh] landscape:lg:h-screen landscape:xl:h-[150vh] w-screen">
                     <div className="w-full flex flex-col items-center justify-center">
                         <div className="w-[80%] lg:w-[70%] flex flex-col items-center gap-[3rem] justify-center">
                             <p className="font-lexend font-medium text-3xl z-[1] relative ">OUR BRANDS</p>
