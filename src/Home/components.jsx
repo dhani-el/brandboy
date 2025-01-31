@@ -188,7 +188,7 @@ export function MenuComponent(){
                 <motion.div className="hidden  w-[25%] h-full overflow-hidden lg:flex items-center justify-center ">
                     <motion.img src={MenuImage} className="h-full max-w-none"/>
                 </motion.div>
-                <motion.div className=" w-full h-full gap-4 lg:h-min lg:w-[70%] flex flex-col lg:flex-row lg:items-center justify-center lg:justify-around">
+                <motion.div className=" w-full h-full pt-8 lg:pt-0 gap-4 lg:h-min lg:w-[70%] flex flex-col md:flex-row lg:items-center justify-center lg:justify-around">
                     <motion.div className="h-[35%] lg:h-min flex flex-col justify-between lg:block">
                         <AMenuLinkItem text={"Welcome"}/>
                         <AMenuLinkItem text={"Acheivements"}/>
@@ -257,7 +257,7 @@ function AMenuLinkItemExt({link,text,id}){
         }
     },[isInView])
 
-    return <motion.a ref={ref} href={link} className="flex w-min flex-col lg:self-end">
+    return <motion.a ref={ref} href={link} className="flex w-fit flex-col lg:self-end">
                 <p className="text-xl lg:text-2xl font-lexend lg:font-light m-0 p-0 font-bold w-fit">{text}</p>
                 <motion.hr id={id} className="h-[0.2rem] w-[0%] bg-red-500" />
            </motion.a>
@@ -299,7 +299,7 @@ function AMenuLinkItemSmallExt({link,text,id,hovering,colour}){
     },[hovering])
 
     return <motion.a  href={link} className="flex flex-col w-fit">
-                <p className="text-[0.7rem] font-lexend font-light">{text}</p>
+                <p className="lg:text-[0.7rem] font-lexend font-light">{text}</p>
                 <motion.hr style={{background:colour}} id={id} className="h-[0.15rem] w-[0%] bg-red-500" />
            </motion.a>
 }
@@ -350,7 +350,7 @@ export function Body(){
 }
 
 function Introduction(){
-    return <div className=" bg-white z-10 h-screen w-screen text-slate-950 flex font-lexend font-thin items-center justify-center">
+    return <div className=" bg-white z-10 py-36 landscape:py-0 landscape:h-screen w-screen text-slate-950 flex font-lexend font-thin items-center justify-center">
                 <div className="w-[80%] lg:w-[45%] flex flex-col items-center justify-center">
                     <p className="font-medium text-black pb-1">BRANDBOY</p>
                     <p className="text-xs pb-14">Interior Designer Lagos</p>
@@ -363,14 +363,14 @@ function Introduction(){
 
 function Projects(){
 
-    const miniImages = [{image:mini1,id:"img0",link:"",text:"Marble/verte"}
-                    ,{image:mini2,id:"img1",link:"",text:"Marble/verte"}
-                    ,{image:mini3,id:"img2",link:"",text:"Marble/verte"}
-                    ,{image:mini4,id:"img3",link:"",text:"Marble/verte"
+    const miniImages = [{image:mini1,id:"img0",link:"",text:"MARBLE/VERTE"}
+                    ,{image:mini2,id:"img1",link:"",text:"MARBLE/VERTE"}
+                    ,{image:mini3,id:"img2",link:"",text:"MARBLE/VERTE"}
+                    ,{image:mini4,id:"img3",link:"",text:"MARBLE/VERTE"
                 }];
     const maxImages = [max1,max2,max3,max4];
     const [currentImage,setcurrentImage] = useState(0)
-    return <div className="lg:h-screen w-screen flex items-center justify-center">
+    return <div className="portrait:lg:h-[50vh] landscape:lg:h-screen w-screen flex items-center justify-center">
                 <div className="w-[80%] lg:w-[75%] h-[90%]">
                     <p className="text-3xl font-lexend relative z-[1]">PROJECTS</p>
                     <motion.div whileInView={{top:"-12%",transition:{duration:1,ease:"easeIn"}}} className="z-[0] relative w-full h-full flex flex-col lg:flex-row items-center lg:justify-between">
@@ -446,7 +446,7 @@ function Acheivements(){
                 }];
     const maxImages = [max1,max2,max3,max4];
     const [currentImage,setcurrentImage] = useState(0)
-    return <div className="lg:h-screen w-screen flex flex-col items-center justify-center">
+    return <div className="portrait:lg:h-[50vh] landscape:lg:h-screen w-screen flex flex-col items-center justify-center">
                 <motion.div initial={{top:"5%"}} whileInView={{top:"-12%",transition:{duration:1,ease:"easeIn"}}} className="relative w-[75%] h-[95%] flex flex-col ">
                     <div className="w-[100%] h-[100%] mb-8">
                     <motion.div  className="z-[0] relative w-full h-full flex items-center justify-between">
@@ -464,7 +464,7 @@ function Acheivements(){
 }
 
 function Series(){
-    return <div className="lg:h-screen w-screen flex justify-center items-center">
+    return <div className="portrait:lg:h-[50vh] landscape:lg:h-screen w-screen flex justify-center items-center">
                 <div className=" w-[80%] lg:w-[70%] h-[80%]">
                     <p className="font-lexend font-bold text-3xl z-[1] relative">SERIES</p>
                     <Carousel />
@@ -529,7 +529,7 @@ function RealSeries(){
     ,{img:Series7,id:"seriesImg3",link:"",text:"Marble/verte"}
     ,{img:Series8,id:"seriesImg3",link:"",text:"Marble/verte"}
 ]
-    return <div className="h-screen w-screen flex flex-col justify-center items-center">
+    return <div className="portrait:lg:h-[50vh] landscape:lg:h-screen w-screen flex flex-col justify-center items-center">
                 <div className=" w-[80%] lg:w-[70%] ">
                     <p className="font-lexend font-bold text-3xl z-[1] relative self-start">REAL</p>
                     <motion.div initial={{top:"5%"}} whileInView={{top:"-2%",transition:{duration:1,ease:"easeIn"}}} className="relative grid grid-cols-2 lg:grid-cols-4 gap-6 items-center justify-center w-full">
@@ -615,7 +615,7 @@ function ShowCaser3({image,link}){
 
 function OurBrands(){
 
-    return <div className="lg:h-screen w-screen">
+    return <div className="portrait:lg:h-[50vh] landscape:lg:h-screen w-screen">
                     <div className="w-full flex flex-col items-center justify-center">
                         <div className="w-[80%] lg:w-[70%] flex flex-col items-center gap-[3rem] justify-center">
                             <p className="font-lexend font-medium text-3xl z-[1] relative ">OUR BRANDS</p>
@@ -646,7 +646,7 @@ function Process(){
     ,{Icon:Ruler,title:"REMOTE SAMPLES PROJECTS",description:`Lorem ipsum dolor sit amet consectetur adipisicing elit. Error tenetur ut unde maiores consequatur exercitationem rem iure, accusantium pariatur ratione.`}
     ,{Icon:I3Dcube,title:"CONSTRUCTION SITE MANAGEMENT",description:`Lorem ipsum dolor sit amet consectetur adipisicing elit. Error tenetur ut unde maiores consequatur exercitationem rem iure, accusantium pariatur ratione.`}
                         ]
-    return <div className="h-screen w-screen flex items-center justify-center">
+    return <div className="h-screen portrait:lg:h-[50vh] w-screen flex items-center justify-center">
         <div className="w-[80%] lg:w-[70%]">
             <WordAnimator word={"PROCESS"}/>
             <div className="w-full pt-12">
@@ -708,7 +708,7 @@ function WordAnimator({word=""}){
 }
 
 function Footer(){
-    return <div className="h-screen w-screen flex lg:items-center justify-center">
+    return <div className="h-screen portrait:lg:h-[50vh] w-screen flex lg:items-center justify-center">
         <div className="w-[80%] lg:w-[70%] lg:h-[80%] flex flex-col lg:items-center justify-center">
             <FooterLogo/>
             <FooterBody/>
@@ -725,7 +725,7 @@ function FooterLogo(){
 
 function FooterBody(){
     return <motion.div  className="cursor-pointer w-full left-0 bottom-0 bg-white z-[99]  lg:p-16 justify-between lg:items-center">
-    <motion.div className="w-full lg:w-[70%] flex flex-col lg:flex-row lg:items-center justify-around">
+    <motion.div className="w-full lg:w-[70%] flex flex-col md:flex-row lg:items-center justify-around">
         <motion.div className="">
             <AMenuLinkItem text={"Welcome"}/>
             <AMenuLinkItem text={"Acheivements"}/>
