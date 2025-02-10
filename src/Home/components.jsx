@@ -37,8 +37,8 @@ import Series8 from "../assets/Images/Series-cuisine-verriere.jpg"
 import Brand1 from "../assets/Images/zecchinon-cuisines-italiennes.jpg"
 import Brand2 from "../assets/Images/ronda-design.jpg"
 import Brand3 from "../assets/Images/colico.jpg"
-import Brand4 from "../assets/Images/aster.jpg"
-import Brand5 from "../assets/Images/armony.jpg"
+import Brand4 from "../assets/Images/Aster.jpg"
+import Brand5 from "../assets/Images/Armony.jpg"
 
 export function Pinned({children,height}){
 
