@@ -43,7 +43,7 @@ import Brand5 from "../assets/Images/Armony.jpg"
 export function Pinned({children,height}){
 
     return <div id="pinnedElement" style={{height}} className={` w-full flex justify-center overflow-x-clip`}>
-                <div className=" pinned top-0 left-0 sticky h-[100vh] w-full flex justify-center">
+                <div className=" pinned top-0 left-0 fixed h-[100vh] w-full flex justify-center">
                     {children}
                 </div>
 
