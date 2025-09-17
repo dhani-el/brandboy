@@ -363,10 +363,10 @@ function Introduction(){
 
 function Projects(){
     const isVeryWide = useMedia({minWidth: '1800px'});
-    const miniImages = [{image:mini1,id:"img0",link:"",text:"MARBLE/VERTE"}
-                    ,{image:mini2,id:"img1",link:"",text:"MARBLE/VERTE"}
-                    ,{image:mini3,id:"img2",link:"",text:"MARBLE/VERTE"}
-                    ,{image:mini4,id:"img3",link:"",text:"MARBLE/VERTE"
+    const miniImages = [{image:mini1,id:"img0",link:"/project/?p=1",text:"MARBLE/VERTE"}
+                    ,{image:mini2,id:"img1",link:"/project/?p=2",text:"MARBLE/VERTE"}
+                    ,{image:mini3,id:"img2",link:"/project/?p=3",text:"MARBLE/VERTE"}
+                    ,{image:mini4,id:"img3",link:"/project/?p=4",text:"MARBLE/VERTE"
                 }];
     const maxImages = [max1,max2,max3,max4];
     const [currentImage,setcurrentImage] = useState(0)
