@@ -414,12 +414,12 @@ function ShowCaser({image,link,text,id,indicateCurrent}){
         }
     }
 
-    return <motion.div onHoverStart={handleHoverStart} onHoverEnd={handleHoverEnd} className="">
+    return <motion.a href={link} onHoverStart={handleHoverStart} onHoverEnd={handleHoverEnd} className=" block no-underline cursor-pointer">
                 <div className="overflow-hidden">
                     <motion.img initial={false} variants={imgVariants} animate={hovering?"animIn":"animOut"} src={image} />
                 </div>
                 <AMenuLinkItemSmallExt hovering={hovering} id={id} link={link} text={text} />
-    </motion.div>
+    </motion.a >
 }
 
 function ShowCaseMaximizer({imageSrc,current,pref}){
