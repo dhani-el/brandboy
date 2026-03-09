@@ -330,7 +330,7 @@ export function Attraction() {
     const stepOneRev = {width:"100%",transition:{ease:"easeInOut",duration:1}}
     const variants = {stepOne,stepOneRev}
     return <motion.div initial={false} variants={variants} animate={animateAttrState} className="attraction absolute z-0 w-full h-[100vh] top-0  flex items-center justify-center overflow-hidden">
-                <motion.video  autoPlay muted loop  src={landingVideo} className="portrait:h-full portrait:max-w-none   landscape:w-full landscape:max-h-none" ></motion.video>
+            <motion.video poster={Actus5} autoPlay muted loop  src={landingVideo} className="portrait:h-full portrait:max-w-none   landscape:w-full landscape:max-h-none" ></motion.video>
             </motion.div>
 }
 
