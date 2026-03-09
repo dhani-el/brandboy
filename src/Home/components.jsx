@@ -4,6 +4,7 @@ import { useMedia } from "use-media"
 import { Setting5,Home,Ruler, I3Dcube } from "iconsax-react"
 import MenuImage from "../assets/Images/menuImage.jpg"
 import landingVideo from "../assets/videos/video-cuisiniste-lyon-italian-kitchen.mp4"
+import MlandingVideo from "../assets/videos/video-cuisiniste-lyon-italian-kitchen.webm"
 import proof from "../assets/Images/proof.png"
 
 import mini1 from "../assets/Images/A-Les-cuisines-d-arno-cuisiniste-Lyon-3-mini.jpg"
@@ -330,7 +331,10 @@ export function Attraction() {
     const stepOneRev = {width:"100%",transition:{ease:"easeInOut",duration:1}}
     const variants = {stepOne,stepOneRev}
     return <motion.div initial={false} variants={variants} animate={animateAttrState} className="attraction absolute z-0 w-full h-[100vh] top-0  flex items-center justify-center overflow-hidden">
-            <motion.video poster={Actus5} autoPlay muted loop  src={landingVideo} className="portrait:h-full portrait:max-w-none   landscape:w-full landscape:max-h-none" ></motion.video>
+            <motion.video poster={Actus5} autoPlay muted loop className="portrait:h-full portrait:max-w-none   landscape:w-full landscape:max-h-none" >
+                <motion.source src = {MlandingVideo} type="video/webm"/>
+                <motion.source src={landingVideo}  type="video/mp4" />
+            </motion.video>
             </motion.div>
 }
 
