@@ -1,4 +1,4 @@
-import {  useEffect, useRef, useState } from "react"
+import {  useEffect, useRef, useState,Suspense } from "react"
 import {motion,stagger, animate,useScroll,useMotionValueEvent, useInView} from "motion/react"
 import { useMedia } from "use-media"
 import { Setting5,Home,Ruler, I3Dcube } from "iconsax-react"
@@ -416,7 +416,9 @@ function ShowCaser({image,link,text,id,indicateCurrent}){
 
     return <motion.a href={link} onHoverStart={handleHoverStart} onHoverEnd={handleHoverEnd} className=" block no-underline cursor-pointer">
                 <div className="overflow-hidden">
-                    <motion.img initial={false} variants={imgVariants} animate={hovering?"animIn":"animOut"} src={image} />
+                    <Suspense fallback={<div>will display soon...</div>}>
+                        <motion.img initial={false} variants={imgVariants} animate={hovering?"animIn":"animOut"} src={image} />
+                    </Suspense>
                 </div>
                 <AMenuLinkItemSmallExt hovering={hovering} id={id} link={link} text={text} />
     </motion.a >

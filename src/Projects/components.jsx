@@ -2,9 +2,12 @@ import {  useEffect, useRef, useState } from "react"
 import {motion,stagger, animate,useScroll,useMotionValueEvent, useInView} from "motion/react"
 import { useMedia } from "use-media"
 import MenuImage from "../assets/Images/menuImage.jpg"
+import { useGSAP } from "@gsap/react"
+import gsap from "gsap"
+import { Play } from "iconsax-react"
+import {ScrollTrigger} from "gsap/all";
 
-
-
+gsap.registerPlugin(ScrollTrigger);
 
 export function Logo(){
   return (
@@ -171,6 +174,7 @@ export function Body({projectTitle,projectDescription}){
   return (
     <div className="w-full p-4 flex flex-col">
       <ProjectTitle title={projectTitle} description={projectDescription} />
+      <GsapPracticeComponent/>
     </div>
   )
 }
@@ -190,4 +194,57 @@ function ProjectTitle({title,description}){
 
 function Underline({thickness,width,color}){
   return <div style={{width:width,height:thickness,backgroundColor:color}} className=""></div>
+}
+
+export function GsapPracticeComponent(){
+  const boxRef = useRef(null);
+  const scrollRef = useRef()
+      // const timeline = gsap.timeline({repeat:-1,yoyo:true,repeatDelay:1});
+    useGSAP(()=>{
+      gsap.to(boxRef.current,{x:"30vw",rotation:360,borderRadius:"100%",duration:2,stagger:0.5,
+        scrollTrigger:{
+          trigger:boxRef.current,
+          start:"bottom bottom"
+        }
+      });
+      // timeline.to(".box",{y:"-40%",x:"35vw",rotation:360,borderRadius:"100%",duration:0.5,ease:"power1",stagger:0.5});
+      // timeline.to(".box",{y:"0%",x:"40vw",rotation:360,borderRadius:"100%",duration:0.5,ease:"power1",stagger:0.5});
+      // timeline.to(".box",{
+      //   x:"50vw",
+      //   rotation:360,
+      //   scale:1,
+      //   duration:2,
+      //   borderRadius:"100%"
+      //   ,stagger:{
+      //     amount:1,
+      //     from:"center",
+      //     axis:"x"
+      //   }
+      // });
+    },[])
+  return (
+    <div style={{position:"relative"}}>
+      <p>This is the gsap testing component</p>
+      {/* <TestBox ref={boxRef}/> */}
+      {/* <TestBox ref={boxRef}/>
+      <TestBox ref={boxRef}/>
+      <TestBox ref={boxRef}/> */}
+      <div id="box" ref={boxRef} style={{backgroundColor:"purple",width:"150px",height:"150px", position:"relative",top:"500px"}}>
+      </div>
+      {/* <button onClick={()=>{
+        if(timeline.paused()){
+          timeline.play();
+        }else{
+          timeline.pause();
+        }
+      }}>Play/pause</button> */}
+    </div>
+  )
+}
+
+function TestBox({id}){
+  return (
+    <div className="box" id={`box-${id}`} style={{backgroundColor:"purple",width:"150px",height:"150px", }}>
+      </div>
+  )
 }
