@@ -421,7 +421,7 @@ function ShowCaser({image,link,text,id,indicateCurrent}){
     return <motion.a href={link} onHoverStart={handleHoverStart} onHoverEnd={handleHoverEnd} className=" block no-underline cursor-pointer">
                 <div className="overflow-hidden">
                     <Suspense fallback={<div>will display soon...</div>}>
-                        <motion.img initial={false} variants={imgVariants} animate={hovering?"animIn":"animOut"} src={image} />
+                        <motion.img loading="lazy" initial={false} variants={imgVariants} animate={hovering?"animIn":"animOut"} src={image} />
                     </Suspense>
                 </div>
                 <AMenuLinkItemSmallExt hovering={hovering} id={id} link={link} text={text} />
