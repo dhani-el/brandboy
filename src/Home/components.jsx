@@ -359,7 +359,7 @@ function Introduction(){
                     <p className="font-medium text-black pb-1">BRANDBOY</p>
                     <p className="text-xs pb-14">Interior Designer Lagos</p>
                     <p className="text-center text-sm lg:w-[90%]" >Italian Kitchen c’est avant tout la passion pour l’aménagement sans compromis. Des projets intemporels avec un accompagnement sur mesure. Nous sommes en challenge permanent pour vous proposer un choix unique, le meilleur des cuisines italiennes, une sélection en  adéquation avec vos envies et votre environnement.</p>
-                    <img className="pt-8" src={proof}/>
+                    <img loading="lazy"  className="pt-8" src={proof}/>
                 </div>
                 <div></div>
     </div>
@@ -519,7 +519,7 @@ function Carousel(){
 
 function CarouselItem({img,text,link,id}){
     return <a href={link} id={id} className="carouselImages w-full lg:h-full flex items-center justify-center cursor-pointer lg:absolute top-0 left-0 ]">
-                <img src={img}/>
+                <img loading="lazy"  src={img}/>
                 <div className="absolute w-fit p-6 bg-[rgba(255,255,255,0.78)] font-lexend flex flex-col justify-center items-center" >
                     <p className="font-medium">"{text}"</p>
                     <p className="font-thin text-xs">"{text}"</p>
@@ -726,7 +726,7 @@ function Footer(){
 
 function FooterLogo(){
     return <motion.a  href="/" id="footerlogo" className="flex items-center relative  w-full justify-center">
-                <img src="/brandboy.jpg" className="w-[2rem] h-[2rem]" />
+                <img loading="lazy"  src="/brandboy.jpg" className="w-[2rem] h-[2rem]" />
                 <p className="font-medium font-lexend md:text-2xl">BRANDBOY</p>
   </motion.a>
 }
