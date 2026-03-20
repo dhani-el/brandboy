@@ -6,6 +6,7 @@ import MenuImage from "../assets/Images/menuImage.jpg"
 import landingVideo from "../assets/videos/video-cuisiniste-lyon-italian-kitchen.mp4"
 import MlandingVideo from "../assets/videos/video-cuisiniste-lyon-italian-kitchen.webm"
 import proof from "../assets/Images/proof.png"
+import proofp from "../assets/optimizedImages/proof.webp"
 
 import mini1 from "../assets/Images/A-Les-cuisines-d-arno-cuisiniste-Lyon-3-mini.jpg"
 import mini2 from "../assets/Images/A-Les-cuisines-d-arno-cuisiniste-Lyon-22-mini.jpg"
@@ -25,6 +26,14 @@ import Actus5 from "../assets/Images/Actus-12-cuisine-sur-mesure-Lyon.jpg"
 import Actus6 from "../assets/Images/Actus-13-cuisine-sur-mesure-Lyon.jpg"
 import Actus7 from "../assets/Images/Actus-14-cuisine-sur-mesure-Lyon.jpg"
 import Actus8 from "../assets/Images/Actus-15-cuisine-sur-mesure-Lyon.jpg"
+import Actus1P from "../assets/optimizedImages/Actus-5-cuisine-elegance-blanche-haussmannien-Lyon.webp"
+import Actus2P from "../assets/optimizedImages/Actus-7-cuisine-Fenix-Lyon.webp"
+import Actus3P from "../assets/optimizedImages/Actus-8-cuisine-sur-mesure-Lyon.webp"
+import Actus4P from "../assets/optimizedImages/Actus-10-cuisine-sur-mesure-Lyon.webp"
+import Actus5P from "../assets/optimizedImages/Actus-12-cuisine-sur-mesure-Lyon.webp"
+import Actus6P from "../assets/optimizedImages/Actus-13-cuisine-sur-mesure-Lyon.webp"
+import Actus7P from "../assets/optimizedImages/Actus-14-cuisine-sur-mesure-Lyon.webp"
+import Actus8P from "../assets/optimizedImages/Actus-15-cuisine-sur-mesure-Lyon.webp"
 
 import Series1 from "../assets/Images/Series-cuisine-blanche-et-bois.jpg"
 import Series2 from "../assets/Images/Series-cuisine-blanche-noire-et-bois.jpg"
@@ -331,7 +340,7 @@ export function Attraction() {
     const stepOneRev = {width:"100%",transition:{ease:"easeInOut",duration:1}}
     const variants = {stepOne,stepOneRev}
     return <motion.div initial={false} variants={variants} animate={animateAttrState} className="attraction absolute z-0 w-full h-[100vh] top-0  flex items-center justify-center overflow-hidden">
-            <motion.video poster={Actus5} autoPlay muted loop className="portrait:h-full portrait:max-w-none   landscape:w-full landscape:max-h-none" >
+            <motion.video poster={'https://photos.app.goo.gl/SrBkr1bsXKS6cKbL8'} autoPlay muted loop className="portrait:h-full portrait:max-w-none   landscape:w-full landscape:max-h-none" >
                 <motion.source src = {MlandingVideo} type="video/webm"/>
                 <motion.source src={landingVideo}  type="video/mp4" />
             </motion.video>
@@ -359,7 +368,10 @@ function Introduction(){
                     <p className="font-medium text-black pb-1">BRANDBOY</p>
                     <p className="text-xs pb-14">Interior Designer Lagos</p>
                     <p className="text-center text-sm lg:w-[90%]" >Italian Kitchen c’est avant tout la passion pour l’aménagement sans compromis. Des projets intemporels avec un accompagnement sur mesure. Nous sommes en challenge permanent pour vous proposer un choix unique, le meilleur des cuisines italiennes, une sélection en  adéquation avec vos envies et votre environnement.</p>
-                    <img loading="lazy"  className="pt-8" src={proof}/>
+                    <picture >
+                        <source  srcset={proofp} type="image/webp" />
+                        <img loading="lazy" src={proof} className="w-[2rem] h-[2rem]" />
+                    </picture>
                 </div>
                 <div></div>
     </div>
@@ -483,6 +495,7 @@ function Series(){
 function Carousel(){
     const isLandscape = useMedia('(orientation: landscape)');
     const images = [{text:"White Wood",link:"",img:Actus1},{text:"White Wood",link:"",img:Actus2},{text:"White Wood",link:"",img:Actus3},{text:"White Wood",link:"",img:Actus4},{text:"White Wood",link:"",img:Actus5},{text:"White Wood",link:"",img:Actus6},{text:"White Wood",link:"",img:Actus7},{text:"White Wood",link:"",img:Actus8}]
+    const imagesP = [{text:"White Wood",link:"",img:Actus1P},{text:"White Wood",link:"",img:Actus2P},{text:"White Wood",link:"",img:Actus3P},{text:"White Wood",link:"",img:Actus4P},{text:"White Wood",link:"",img:Actus5P},{text:"White Wood",link:"",img:Actus6P},{text:"White Wood",link:"",img:Actus7P},{text:"White Wood",link:"",img:Actus8P}]
     const [currentImage,setCurrentImage] = useState(0);
 
     function handleNextClick(){
@@ -511,15 +524,18 @@ function Carousel(){
             </div>
             <div className="w-full lg:h-full flex flex-col gap-4 lg:block relative overflow-hidden">
                 {images.map(function(image,index){
-                    return <CarouselItem img={image.img} id={`carouselItem${index}`} text={image.text} link={image.link}/>
+                    return <CarouselItem imgp={imagesP[index].img} img={image.img} id={`carouselItem${index}`} text={image.text} link={image.link}/>
                 })}
             </div>
     </motion.div>
 }
 
-function CarouselItem({img,text,link,id}){
+function CarouselItem({img,imgp,text,link,id}){
     return <a href={link} id={id} className="carouselImages w-full lg:h-full flex items-center justify-center cursor-pointer lg:absolute top-0 left-0 ]">
-                <img loading="lazy"  src={img}/>
+                <picture >
+                    <source  srcset={imgp} type="image/webp" />
+                    <img loading="lazy" src={img} className="w-[2rem] h-[2rem]" />
+                </picture>
                 <div className="absolute w-fit p-6 bg-[rgba(255,255,255,0.78)] font-lexend flex flex-col justify-center items-center" >
                     <p className="font-medium">"{text}"</p>
                     <p className="font-thin text-xs">"{text}"</p>
@@ -726,7 +742,7 @@ function Footer(){
 
 function FooterLogo(){
     return <motion.a  href="/" id="footerlogo" className="flex items-center relative  w-full justify-center">
-                <img loading="lazy"  src="/brandboy.jpg" className="w-[2rem] h-[2rem]" />
+                <img loading="lazy" src="/brandboy.jpg" className="w-[2rem] h-[2rem]" />
                 <p className="font-medium font-lexend md:text-2xl">BRANDBOY</p>
   </motion.a>
 }
